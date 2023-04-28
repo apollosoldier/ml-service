@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jupyter-notebook
+spec:
+  selector:
+    matchLabels:
+      app: jupyter-notebook
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jupyter-notebook
+    spec:
+      containers:
+        - name: jupyter-notebook
+          image: localhost:5000/juju:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: notebooks
+              mountPath: /workspace
+      imagePullSecrets:
+        - name: dHJhb3JlOkVkaWZpY2UyMjM=
+      volumes:
+        - name: notebooks
+          hostPath:
+            path: /home/panda/Documents/os/ml-service/notebooks/

@@ -8,4 +8,8 @@ services:
       - "80:80"
     volumes:
       - ./notebooks:/workspace
+    runtime: nvidia
+    environment:
+      NVIDIA_VISIBLE_DEVICES: all
+      NVIDIA_DRIVER_CAPABILITIES: compute,utility
     command: ["jupyter", "notebook", "--ip=0.0.0.0", "--port=80", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.password=''"]

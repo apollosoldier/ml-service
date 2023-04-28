@@ -13,6 +13,13 @@ ENV PATH "$PATH:${HOME}/.local/bin"
 
 USER root
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libcudnn8 \
+        libcudnn8-dev \
+        libnccl2 \
+        libnccl-dev && \
+    rm -rf /var/lib/apt/lists/*
+
 RUN pip install pandas notebook ipykernel scikit-learn tqdm transformers \
                 bitsandbytes pytorch-lightning sentencepiece \
                 iterative-stratification text_unidecode ipywidgets \
