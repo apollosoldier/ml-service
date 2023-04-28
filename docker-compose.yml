@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   jupyter:
+    image: jupyter-notebook-cust:${TAG:-v1.0.0}
     build: .
     ports:
       - "80:80"
