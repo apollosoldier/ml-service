@@ -5,7 +5,7 @@ IMAGE_NAME=juju
 TAG=latest
 
 # build the Docker image
-docker build -t $IMAGE_NAME:$TAG .
+docker build -t $IMAGE_NAME:$TAG ./docker/
 
 # set the registry URL
 REGISTRY_URL=localhost:5000
