@@ -1,0 +1,24 @@
+FROM pytorch/pytorch:1.9.0-cuda11.1-cudnn8-devel
+
+
+ENV NB_USER mohamed
+ENV NB_UID 1000
+ENV HOME /home/$NB_USER
+
+RUN useradd -M -s /bin/bash -N -u ${NB_UID} ${NB_USER} && \
+    mkdir -p ${HOME} && \
+    chown -R ${NB_USER}:users ${HOME} && \
+    chown -R ${NB_USER}:users /usr/local/bin
+
+ENV PATH "$PATH:${HOME}/.local/bin"
+
+USER root
+
+RUN pip install pandas notebook ipykernel scikit-learn tqdm transformers \
+                bitsandbytes pytorch-lightning sentencepiece \
+                iterative-stratification text_unidecode ipywidgets \
+                scikit-learn lightgbm catboost -U protobuf==3.20.1
+
+EXPOSE 80
+
+CMD ["jupyter", "notebook", "--ip", "0.0.0.0", "--port", "80", "--no-browser", "--allow-root", "--NotebookApp.token=''", "--NotebookApp.notebook_dir=/notebooks"]
